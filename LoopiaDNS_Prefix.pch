@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'LoopiaAPI' target in the 'LoopiaAPI' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
