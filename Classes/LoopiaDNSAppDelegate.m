@@ -5,6 +5,9 @@
 //  Created by Simon Blommegård on 2010-02-25.
 //  Copyright 2010 Simon Blommegård. All rights reserved.
 //
+//  Modified by Björn Dahlgren 2011-06-13
+//  Added support for multiple users
+//
 
 #import <BWToolkitFramework/BWToolkitFramework.h>
 #import <SBPunyCode/SBPunyCode.h>
@@ -14,7 +17,6 @@
 #import "EMKeychainItem.h"
 #import "LHURLAccess.h"
 #import "SBZoneRecordDataFormatter.h"
-#import "SBPreferencesWindowController.h"
 #import "SBDomainInfoWindowController.h"
 
 @implementation LoopiaDNSAppDelegate
@@ -43,23 +45,6 @@
 		externalIP = data;
 	}];
 	
-	//Auth
-	EMGenericKeychainItem *keychainItem = [EMGenericKeychainItem genericKeychainItemForService:@"LoopiaDNS" withUsername:[defaults stringForKey:@"SBLoopiaAPIUser"]];
-	if (![defaults stringForKey:@"SBLoopiaAPIUser"] || !keychainItem) {
-		SBAuthWindowController *authWindowController = [[SBAuthWindowController alloc] init];
-		[authWindowController setDelegate:self];
-		[authWindowController showSheetWithParent:window];
-	}
-	
-	// Loopia
-	if ([keychainItem username] && [keychainItem password]) {
-		RPC = [[SBLoopiaAPI alloc] initWithAPIUser:[keychainItem username] password:[keychainItem password]];
-	} else {
-		RPC = [[SBLoopiaAPI alloc] initWithAPIUser:@"asdf" password:@"asdf"];
-	}
-
-	[RPC setDelegate:self];
-	
 	subdomains = [NSMutableDictionary dictionary];
 	justAdded = NO;
 	
@@ -71,11 +56,32 @@
 	[zoneRecordTableViewCellData setFormatter:zoneRecordDataFormatter];
 	[zoneRecordDataFormatter bind:@"type" toObject:zoneRecordArrayController withKeyPath:@"selection.typeIndex" options:nil];
 	
-	//Rock'n'roll!
-	if ([keychainItem username] && [keychainItem password]) {
-		[reloadDomainButton setEnabled:NO];
-		[domainsProgressIndicator startAnimation:nil];
-		[RPC getDomains];
+	domains = [[NSMutableArray alloc] init];
+	userRPCs = [[NSMutableDictionary alloc] init];
+	domainRPCs = [[NSMutableDictionary alloc] init];
+	NSArray *users = [defaults arrayForKey:@"SBLoopiaAPIUsers"];
+	
+	if (users == nil || [users count] == 0) {
+		[self showPreferences:nil];
+	}
+		
+	for (NSString* user in users) {
+		// Get key for user
+		EMGenericKeychainItem *keychainItem = [EMGenericKeychainItem genericKeychainItemForService:@"LoopiaDNS" withUsername:user];
+		
+		// If key is valid
+		if ([keychainItem username] && [keychainItem password]) {
+			// Create new RPC
+			SBLoopiaAPI *rpc = [[SBLoopiaAPI alloc] initWithAPIUser:[keychainItem username] password:[keychainItem password]];
+			[rpc setDelegate:self];
+			
+			// Add it in the user dictionary
+			[userRPCs setValue:rpc forKey:user];
+			
+			[reloadDomainButton setEnabled:NO];
+			[domainsProgressIndicator startAnimation:nil];
+			[rpc getDomains];
+		}
 	}
 }
 
@@ -88,16 +94,28 @@
 
 #pragma mark IBActions
 
+- (IBAction)showPreferences:(id)sender {
+    SBPreferencesWindowController *preferencesWindowController = [[SBPreferencesWindowController alloc] init];
+    [preferencesWindowController setDelegate:self];
+    [preferencesWindowController.window makeKeyAndOrderFront:self];
+}
+
 - (IBAction)checkAvailability:(id)sender {
 	[freeDomainImageView setImage:nil];
 	[freeDomainProgressIndicator startAnimation:nil];
-	[RPC domainIsFree:[freeDomainTextField stringValue]];
+	[[userRPCs objectForKey:[freeDomainUserList titleOfSelectedItem]] domainIsFree:[freeDomainTextField stringValue]];
 }
 
 - (IBAction)reloadDomain:(id)sender {
 	[reloadDomainButton setEnabled:NO];
 	[domainsProgressIndicator startAnimation:nil];
-	[RPC getDomains];
+	
+	// Clear all domain data
+	[domains removeAllObjects];
+	[domainRPCs removeAllObjects];
+	
+	for (SBLoopiaAPI *rpc in [userRPCs allValues])
+		[rpc getDomains];
 }
 
 - (IBAction)addSubdomain:(id)sender {
@@ -128,7 +146,9 @@
 - (IBAction)reloadZoneRecord:(id)sender {
 	[reloadZoneRecordButton setEnabled:NO];
 	[zoneRecordProgressIndicator startAnimation:nil];
-	[RPC getZoneRecordsForDomain:[selectedSubdomain objectForKey:@"domain"] subdomain:[selectedSubdomain objectForKey:@"subdomain"]];
+	
+	NSString *domain = [selectedSubdomain objectForKey:@"domain"];
+	[[domainRPCs objectForKey:domain] getZoneRecordsForDomain:domain subdomain:[selectedSubdomain objectForKey:@"subdomain"]];
 }
 
 - (IBAction)addZoneRecord:(id)sender {	
@@ -175,7 +195,8 @@
 	//Remove..
 	if (returnCode == NSAlertDefaultReturn) {
 		[domainsProgressIndicator startAnimation:nil];
-		[RPC removeSubdomain:[contextInfo objectForKey:@"subdomain"] forDomain:[contextInfo objectForKey:@"domain"]];
+		NSString *domain = [contextInfo objectForKey:@"domain"];
+		[[domainRPCs objectForKey:domain] removeSubdomain:[contextInfo objectForKey:@"subdomain"] forDomain:domain];
 	}
 }	 
 
@@ -183,16 +204,16 @@
 
 - (BOOL)shouldCloseSheet:(id)sender {
 	if ([sender isEqualTo:freeDomainAddButton]) {
-		
+		SBLoopiaAPI *rpc = [userRPCs objectForKey:[freeDomainUserList titleOfSelectedItem]];
 		NSString *domain = [freeDomainTextField stringValue];
 		[domainsProgressIndicator startAnimation:nil];
 
 		//Buy..
 		if ([freeDomainBuyCheckBox state] == NSOnState) {
-			[RPC addDomain:domain buy:YES];
+			[rpc addDomain:domain buy:YES];
 		//..or just add it..
 		} else {
-			[RPC addDomain:domain buy:NO];
+			[rpc addDomain:domain buy:NO];
 		}
 	}
 	
@@ -203,20 +224,23 @@
 	return YES;
 }
 
-#pragma mark SBAuthWindowControllerDelegate
+#pragma mark SBPreferencesWindowController
 
-- (void)authWindowController:(SBAuthWindowController *)authWindowController didAuthenticatewithUsername:(NSString *)username password:(NSString *)password {
-	[RPC setAPIUser:username];
-	[RPC setAPIPassword:password];
+- (void)addedUser:(NSString*)username password:(NSString*)password {
+	SBLoopiaAPI *rpc = [[SBLoopiaAPI alloc] initWithAPIUser:username password:password];
+	[rpc setDelegate:self];
+	[userRPCs setValue:rpc forKey:username];
 	
 	[reloadDomainButton setEnabled:NO];
 	[domainsProgressIndicator startAnimation:nil];
-	[RPC getDomains];
+	[rpc getDomains];
 }
 
-- (void)authWindowControllerDidCancel:(SBAuthWindowController *)authWindowController {
-	[reloadDomainButton setEnabled:YES];
-	[domainsProgressIndicator stopAnimation:nil];
+- (void)removedUsers:(NSArray*)users {
+    for (NSString *user in users)
+        [userRPCs removeObjectForKey:user];
+    
+    [self reloadDomain:nil];
 }
 
 #pragma mark SBAddSubdomainWindowControllerDomain
@@ -224,7 +248,7 @@
 - (void)addSubdomainWindowController:(SBAddSubdomainWindowController *)addSubdomainWindowController didAddSubdomain:(NSString *)subdomain toDomain:(NSString *)domain {	
 	
 	[domainsProgressIndicator startAnimation:nil];
-	[RPC addSubdomain:subdomain toDomain:domain];
+	[[domainRPCs objectForKey:domain] addSubdomain:subdomain toDomain:domain];
 }
 
 - (void)addSubdomainWindowControllerDidCancel:(SBAddSubdomainWindowController *)addSubdomainWindowController {}
@@ -248,7 +272,8 @@
 					continue;
 				}
 					
-				[RPC removeZoneRecord:[zr ID] forDomain:[selectedSubdomain objectForKey:@"domain"] subdomain:[selectedSubdomain objectForKey:@"subdomain"]];
+				NSString *domain = [selectedSubdomain objectForKey:@"domain"];
+				[[domainRPCs objectForKey:domain] removeZoneRecord:[zr ID] forDomain:domain subdomain:[selectedSubdomain objectForKey:@"subdomain"]];
 			}
 			break;
 		case NSKeyValueChangeReplacement:
@@ -267,16 +292,18 @@
 
 	if (![loopiaZoneRecord dirty]) return proposedSelectionIndexes;
 	
-	[[zoneRecords objectAtIndex:[tableView selectedRow]] setDirty:NO];	
+	[[zoneRecords objectAtIndex:[tableView selectedRow]] setDirty:NO];
+	
+	NSString *domain = [selectedSubdomain objectForKey:@"domain"];
 	
 	if ([loopiaZoneRecord ID]) {
 		//Update the record..
 		[zoneRecordProgressIndicator startAnimation:nil];
-		[RPC updateZoneRecord:loopiaZoneRecord forDomain:[selectedSubdomain objectForKey:@"domain"] subdomain:[selectedSubdomain objectForKey:@"subdomain"]];
+		[[domainRPCs objectForKey:domain] updateZoneRecord:loopiaZoneRecord forDomain:domain subdomain:[selectedSubdomain objectForKey:@"subdomain"]];
 	} else {
 		//Add the record..
 		[zoneRecordProgressIndicator startAnimation:nil];
-		[RPC addZoneRecord:loopiaZoneRecord toDomain:[selectedSubdomain objectForKey:@"domain"] subdomain:[selectedSubdomain objectForKey:@"subdomain"]];
+		[[domainRPCs objectForKey:domain] addZoneRecord:loopiaZoneRecord toDomain:domain subdomain:[selectedSubdomain objectForKey:@"subdomain"]];
 	}
 	
 	return proposedSelectionIndexes;
@@ -337,7 +364,8 @@
 
 - (void)outlineViewItemWillExpand:(NSNotification *)notification {
 	[domainsProgressIndicator startAnimation:nil];
-	[RPC getSubdomainsForDomain:[[[notification userInfo] objectForKey:@"NSObject"] objectForKey:SBLoopiaDomainDomainKey]];
+	NSString *domain = [[[notification userInfo] objectForKey:@"NSObject"] objectForKey:SBLoopiaDomainDomainKey];
+	[[domainRPCs objectForKey:domain] getSubdomainsForDomain:domain];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
@@ -383,7 +411,8 @@
 		
 		//Update our KVO array for real..
 		[zoneRecordProgressIndicator startAnimation:nil];
-		[RPC getZoneRecordsForDomain:[item objectForKey:@"domain"] subdomain:[item objectForKey:@"subdomain"]];
+		NSString *domain = [item objectForKey:@"domain"];
+		[[domainRPCs objectForKey:domain] getZoneRecordsForDomain:domain subdomain:[item objectForKey:@"subdomain"]];
 	//..else if domain..
 	} else {
 		[removeDomainButton setEnabled:NO];
@@ -416,8 +445,15 @@
 #pragma mark SBLoopiaXMLRPCDelegate
 
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI getDomainsDidFinishWithArray:(NSArray *)array {
-	domains = [array copy];
+	[domains addObjectsFromArray:array];
 	
+	[domains sortUsingComparator:^(id a, id b) { 
+		return [[[a objectForKey:@"domain"] stringFromIDN] compare:[[b objectForKey:@"domain"] stringFromIDN]];
+	}];
+	
+	for (NSDictionary *domainInfo in array)
+		[domainRPCs setValue:loopiaAPI forKey:[domainInfo valueForKey:@"domain"]];
+		
 	[domainsProgressIndicator stopAnimation:nil];
 	[domainOutlineView reloadData];
 	[reloadDomainButton setEnabled:YES];
@@ -476,7 +512,7 @@
 
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI removeSubdomain:(NSString *)subdomain forDomain:(NSString *)domain didFinishWithString:(NSString *)string {
 	if (![string isEqualToString:SBLoopiaStatusOK]) {
-		[RPC getSubdomainsForDomain:domain];
+		[[domainRPCs objectForKey:domain] getSubdomainsForDomain:domain];
 	} else {
 		//Remove from our model..
 		for	(NSDictionary *subdomainDict in [[subdomains objectForKey:domain] copy]) {
@@ -495,18 +531,23 @@
 	}
 }
 
+#pragma mark TODO
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI failedAuthenticateWithUsername:(NSString *)username password:(NSString *)password {
-	//Auth..
-	SBAuthWindowController *authWindowController = [[SBAuthWindowController alloc] init];
-	[authWindowController setDelegate:self];
-	[authWindowController showSheetWithParent:window];
+	//Create an alert sheet..
+	NSAlert *alert = [NSAlert alertWithMessageText:@"Authentication failed" defaultButton:@"Ok" alternateButton:nil otherButton:nil informativeTextWithFormat:[NSString stringWithFormat:@"Login with user %@ failed.", username]];
+	[alert setAlertStyle:NSCriticalAlertStyle];
+	
+	//Show the sheet..
+	[alert beginSheetModalForWindow:window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+	
+	[alert release];
 }
 
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI addSubdomain:(NSString *)subdomain toDomain:(NSString *)domain didFinishWithString:(NSString *)string {	
 	//We have just added a new subdomain..
 	justAdded = YES;
 	justAddedSubdomain = subdomain;
-	[RPC getSubdomainsForDomain:domain];
+	[[domainRPCs objectForKey:domain] getSubdomainsForDomain:domain];
 }
 
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI getZoneRecordsForDomain:(NSString *)domain subdomain:(NSString *)subdomain didFinishWithArray:(NSArray *)array {
@@ -522,7 +563,7 @@
 
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI removeZoneRecord:(NSInteger)recordID forDomain:(NSString *)domain subdomain:(NSString *)subdomain didFinishWithString:(NSString *)string {
 	if (![string isEqualToString:SBLoopiaStatusOK]) {
-		[RPC getZoneRecordsForDomain:domain subdomain:subdomain];
+		[[domainRPCs objectForKey:domain] getZoneRecordsForDomain:domain subdomain:subdomain];
 	} else {
 		[zoneRecordProgressIndicator stopAnimation:nil];
 	}
@@ -531,7 +572,7 @@
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI updateZoneRecord:(SBLoopiaZoneRecord *)loopiaZoneRecord toDomain:(NSString *)domain subdomain:(NSString *)subdomain didFinishWithString:(NSString *)string {
 	[window setDocumentEdited:NO];
 	if (![string isEqualToString:SBLoopiaStatusOK]) {
-		[RPC getZoneRecordsForDomain:domain subdomain:subdomain];
+		[[domainRPCs objectForKey:domain] getZoneRecordsForDomain:domain subdomain:subdomain];
 	} else {
 		[zoneRecordProgressIndicator stopAnimation:nil];		
 	}
@@ -540,7 +581,7 @@
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI addZoneRecord:(SBLoopiaZoneRecord *)loopiaZoneRecord toDomain:(NSString *)domain subdomain:(NSString *)subdomain didFinishWithString:(NSString *)string {
 	[window setDocumentEdited:NO];
 	//Call every time to get the new ID..
-	[RPC getZoneRecordsForDomain:domain subdomain:subdomain];
+	[[domainRPCs objectForKey:domain] getZoneRecordsForDomain:domain subdomain:subdomain];
 }
 
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI failedRateLimited:(NSString *)string {
@@ -558,9 +599,22 @@
 }
 
 - (void)loopiaAPI:(SBLoopiaAPI *)loopiaAPI addDomain:(NSString *)domain buy:(BOOL)buy didFinishWithString:(NSString *)string {
-	//Reload our list of domains..
+	// Stop indicator
+	[domainsProgressIndicator stopAnimation:nil];
+	
+	// If successful, reload our list of domains..
 	if ([string isEqualToString:SBLoopiaStatusOK]) {
-		[RPC getDomains];
+		[domainRPCs setValue:loopiaAPI forKey:domain];
+		[loopiaAPI getDomains];
+	} else if ([string isEqualToString:SBLoopiaStatusDomainOccupied]) {
+		//Create an alert sheet..
+		NSAlert *alert = [NSAlert alertWithMessageText:@"Domain Occupied" defaultButton:@"Ok" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Try another domain"];
+		[alert setAlertStyle:NSCriticalAlertStyle];
+		
+		//Show the sheet..
+		[alert beginSheetModalForWindow:window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		
+		[alert release];
 	}
 }
 
