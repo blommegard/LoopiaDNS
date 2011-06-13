@@ -5,19 +5,23 @@
 //  Created by Simon Blommegård on 2010-02-25.
 //  Copyright 2010 Simon Blommegård. All rights reserved.
 //
+//  Modified by Björn Dahlgren 2011-06-13
+//  Added support for multiple users
+//
 
 #import <Cocoa/Cocoa.h>
 
 #import "SBLoopiaAPI.h"
-#import "SBAuthWindowController.h"
 #import "SBAddSubdomainWindowController.h"
+#import "SBPreferencesWindowController.h"
 
 @class SBDomainInfoWindowController;
 
-@interface LoopiaDNSAppDelegate : NSObject <NSApplicationDelegate, SBLoopiaAPIDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, SBAuthWindowControllerDelegate, SBAddSubdomainWindowControllerDelegate, NSTableViewDelegate, NSTableViewDataSource, NSUserInterfaceValidations> {
+@interface LoopiaDNSAppDelegate : NSObject <NSApplicationDelegate, SBLoopiaAPIDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, SBAddSubdomainWindowControllerDelegate, SBPreferencesWindowControllerDelegate, NSTableViewDelegate, NSTableViewDataSource, NSUserInterfaceValidations> {
     NSWindow *window;
 	
-	SBLoopiaAPI *RPC;
+	NSMutableDictionary *userRPCs;
+	NSMutableDictionary *domainRPCs;
 	
 	NSUndoManager *undoManager;
 	
@@ -56,6 +60,7 @@
 	//Add a Domain Sheet
 	IBOutlet NSImageView *freeDomainImageView;
 	IBOutlet NSProgressIndicator *freeDomainProgressIndicator;
+	IBOutlet NSPopUpButton *freeDomainUserList;
 	IBOutlet NSTextField *freeDomainTextField;
 	IBOutlet NSButton *freeDomainBuyCheckBox;
 	IBOutlet NSButton *freeDomainAddButton;
@@ -64,6 +69,15 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (copy) NSMutableArray *zoneRecords;
+
+#pragma mark -
+
+- (void)addedUser:(NSString*)username password:(NSString*)password;
+- (void)removedUsers:(NSArray*)users;
+
+#pragma mark -
+
+- (IBAction)showPreferences:(id)sender;
 
 #pragma mark -
 

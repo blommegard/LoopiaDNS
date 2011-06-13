@@ -113,7 +113,7 @@
 		F4426205115A8AEE0028D44E /* SBPreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SBPreferencesWindow.xib; sourceTree = "<group>"; };
 		F44CF02C113BEBD30092A04D /* SBLoopiaZoneRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLoopiaZoneRecord.h; sourceTree = "<group>"; };
 		F44CF02D113BEBD30092A04D /* SBLoopiaZoneRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoopiaZoneRecord.m; sourceTree = "<group>"; };
-		F4578FD811692E9F00CA7684 /* SBDomainInfoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SBDomainInfoWindow.xib; path = Classes/SBDomainInfoWindow.xib; sourceTree = "<group>"; };
+		F4578FD811692E9F00CA7684 /* SBDomainInfoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SBDomainInfoWindow.xib; sourceTree = "<group>"; };
 		F4578FDB11692F1400CA7684 /* SBDomainInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDomainInfoWindowController.h; sourceTree = "<group>"; };
 		F4578FDC11692F1400CA7684 /* SBDomainInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDomainInfoWindowController.m; sourceTree = "<group>"; };
 		F479B4A2114EB3AB00F509F1 /* SBPunyCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SBPunyCode.framework; path = Frameworks/SBPunyCode.framework; sourceTree = "<group>"; };
