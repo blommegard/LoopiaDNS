@@ -43,7 +43,8 @@
 	[[self window] orderOut:nil];
 	
 	//Message delegate..
-	[[self delegate] authWindowController:self didAuthenticatewithUsername:[APIUserTextField stringValue] password:[APIPasswordTextField stringValue]];
+    if ([self.delegate respondsToSelector:@selector(authWindowController:didAuthenticatewithUsername:password:)])
+        [[self delegate] authWindowController:self didAuthenticatewithUsername:[APIUserTextField stringValue] password:[APIPasswordTextField stringValue]];
 }
 - (IBAction)cancel:(id)sender {	
 	//Disappear..
@@ -51,7 +52,8 @@
 	[[self window] orderOut:nil];
 	
 	//Message delegate..
-	[[self delegate] authWindowControllerDidCancel:self];
+    if ([self.delegate respondsToSelector:@selector(authWindowControllerDidCancel:)])
+        [[self delegate] authWindowControllerDidCancel:self];
 }
 
 #pragma mark -

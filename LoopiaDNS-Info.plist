@@ -28,9 +28,5 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SUFeedURL</key>
-	<string>http://simonb.se/apps/appcast/loopiadns</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>sparkle_dsa_pub.pem</string>
 </dict>
 </plist>

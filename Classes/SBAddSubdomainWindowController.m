@@ -34,7 +34,8 @@
 	[[self window] orderOut:nil];
 	
 	//Message delegate..
-	[[self delegate] addSubdomainWindowController:self didAddSubdomain:[[subdomainTextField stringValue] stringToIDN] toDomain:domainString];
+    if ([self.delegate respondsToSelector:@selector(addSubdomainWindowController:didAddSubdomain:toDomain:)])
+        [[self delegate] addSubdomainWindowController:self didAddSubdomain:[[subdomainTextField stringValue] stringToIDN] toDomain:domainString];
 }
 - (IBAction)cancel:(id)sender {	
 	//Disappear..
@@ -42,7 +43,8 @@
 	[[self window] orderOut:nil];
 	
 	//Message delegate..
-	[[self delegate] addSubdomainWindowControllerDidCancel:self];
+    if ([self.delegate respondsToSelector:@selector(addSubdomainWindowControllerDidCancel:)])
+        [[self delegate] addSubdomainWindowControllerDidCancel:self];
 }
 
 #pragma mark -

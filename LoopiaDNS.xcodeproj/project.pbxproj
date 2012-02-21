@@ -6,27 +6,14 @@
 	objectVersion = 45;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		F4F5FC7A116CADCF00241150 /* LoopiaAPI Distribution (Sparkle) */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = F4F5FC82116CADF100241150 /* Build configuration list for PBXAggregateTarget "LoopiaAPI Distribution (Sparkle)" */;
-			buildPhases = (
-				F4F5FC8D116CAE5C00241150 /* Sparkle */,
-			);
-			dependencies = (
-				F4F5FC7E116CADDE00241150 /* PBXTargetDependency */,
-			);
-			name = "LoopiaAPI Distribution (Sparkle)";
-			productName = "LoopiaAPI Distribution (Sparkle)";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		256AC3DA0F4B6AC300CF3369 /* LoopiaDNSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* LoopiaDNSAppDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		F40864B5116BDDDC00CDA0BF /* SBBooleanValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F40864B4116BDDDC00CDA0BF /* SBBooleanValueTransformer.m */; };
 		F4086548116BF91000CDA0BF /* SBPunyCodeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F4086547116BF91000CDA0BF /* SBPunyCodeValueTransformer.m */; };
+		F40B790A14F3F15600442274 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = F40B790814F3F15600442274 /* MainMenu.nib */; };
+		F40B790B14F3F15600442274 /* SBPreferencesWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = F40B790914F3F15600442274 /* SBPreferencesWindow.nib */; };
 		F40EFC72113E966000815ADE /* Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = F40EFC71113E966000815ADE /* Checkmark.png */; };
 		F40EFC80113E973D00815ADE /* Cross.png in Resources */ = {isa = PBXBuildFile; fileRef = F40EFC7F113E973D00815ADE /* Cross.png */; };
 		F41A13F511408417005EAB77 /* SBAddSubdomainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A13F411408417005EAB77 /* SBAddSubdomainWindowController.m */; };
@@ -34,7 +21,6 @@
 		F41A14EA114123E1005EAB77 /* LoopiaDNS.icns in Resources */ = {isa = PBXBuildFile; fileRef = F41A14E9114123E1005EAB77 /* LoopiaDNS.icns */; };
 		F41A14F9114125F7005EAB77 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F41A14F8114125F7005EAB77 /* Credits.rtf */; };
 		F4426204115A89390028D44E /* SBPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4426203115A89390028D44E /* SBPreferencesWindowController.m */; };
-		F44CF02E113BEBD30092A04D /* SBLoopiaZoneRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = F44CF02D113BEBD30092A04D /* SBLoopiaZoneRecord.m */; };
 		F4578FD911692E9F00CA7684 /* SBDomainInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4578FD811692E9F00CA7684 /* SBDomainInfoWindow.xib */; };
 		F4578FDD11692F1400CA7684 /* SBDomainInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4578FDC11692F1400CA7684 /* SBDomainInfoWindowController.m */; };
 		F479B4A3114EB3AB00F509F1 /* SBPunyCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F479B4A2114EB3AB00F509F1 /* SBPunyCode.framework */; };
@@ -44,30 +30,17 @@
 		F47A56C6113F245500284FFE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47A56C5113F245500284FFE /* Security.framework */; };
 		F47A56DF113F283A00284FFE /* SBAuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47A56DE113F283A00284FFE /* SBAuthWindowController.m */; };
 		F47A56E1113F287B00284FFE /* SBAuthWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F47A56E0113F287B00284FFE /* SBAuthWindow.xib */; };
+		F48F46BA14F3F75D006BD8CA /* SBLoopiaAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F48F46B714F3F75D006BD8CA /* SBLoopiaAPI.m */; };
+		F48F46BB14F3F75D006BD8CA /* SBLoopiaZoneRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = F48F46B914F3F75D006BD8CA /* SBLoopiaZoneRecord.m */; };
 		F4D17FFE114F109C00DE284E /* LHURLAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D17FFD114F109C00DE284E /* LHURLAccess.m */; };
 		F4D18050114F154E00DE284E /* SBZoneRecordDataFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D1804F114F154E00DE284E /* SBZoneRecordDataFormatter.m */; };
-		F4D5282811371D0200D97BF5 /* SBLoopiaAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D5282711371D0200D97BF5 /* SBLoopiaAPI.m */; };
 		F4DB109D1139B19C00BE6502 /* XMLRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DB109C1139B19C00BE6502 /* XMLRPC.framework */; };
 		F4DB10B41139B1D800BE6502 /* XMLRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4DB109C1139B19C00BE6502 /* XMLRPC.framework */; };
 		F4DB10B81139B1F500BE6502 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DB10B71139B1F500BE6502 /* Cocoa.framework */; };
-		F4EFD9F71164FFCE00013368 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EFD9F61164FFCE00013368 /* Sparkle.framework */; };
-		F4EFD9FA1164FFD800013368 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4EFD9F61164FFCE00013368 /* Sparkle.framework */; };
 		F4EFDA0F1165051500013368 /* sparkle_dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = F4EFDA0E1165051500013368 /* sparkle_dsa_pub.pem */; };
-		F4F4660E13A62F35006C2C84 /* SBPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F4660D13A62F35006C2C84 /* SBPreferencesWindow.xib */; };
-		F4F4661113A62F3C006C2C84 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F4660F13A62F3C006C2C84 /* MainMenu.xib */; };
 		F4F6ED6A113DB0CE0060ACCE /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F6ED69113DB0CE0060ACCE /* BWToolkitFramework.framework */; };
 		F4F6EDA1113DB0EF0060ACCE /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4F6ED69113DB0CE0060ACCE /* BWToolkitFramework.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F4F5FC7D116CADDE00241150 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = LoopiaDNS;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F4DB10BB1139B1F500BE6502 /* CopyFiles */ = {
@@ -76,7 +49,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F4EFD9FA1164FFD800013368 /* Sparkle.framework in CopyFiles */,
 				F479B4A6114EB3AF00F509F1 /* SBPunyCode.framework in CopyFiles */,
 				F4F6EDA1113DB0EF0060ACCE /* BWToolkitFramework.framework in CopyFiles */,
 				F4DB10B41139B1D800BE6502 /* XMLRPC.framework in CopyFiles */,
@@ -100,6 +72,8 @@
 		F40864B4116BDDDC00CDA0BF /* SBBooleanValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBooleanValueTransformer.m; sourceTree = "<group>"; };
 		F4086546116BF91000CDA0BF /* SBPunyCodeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPunyCodeValueTransformer.h; sourceTree = "<group>"; };
 		F4086547116BF91000CDA0BF /* SBPunyCodeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPunyCodeValueTransformer.m; sourceTree = "<group>"; };
+		F40B790814F3F15600442274 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = MainMenu.nib; sourceTree = "<group>"; };
+		F40B790914F3F15600442274 /* SBPreferencesWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = SBPreferencesWindow.nib; sourceTree = "<group>"; };
 		F40EFC71113E966000815ADE /* Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Checkmark.png; path = Images/Checkmark.png; sourceTree = "<group>"; };
 		F40EFC7F113E973D00815ADE /* Cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cross.png; path = Images/Cross.png; sourceTree = "<group>"; };
 		F41A13F311408417005EAB77 /* SBAddSubdomainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAddSubdomainWindowController.h; sourceTree = "<group>"; };
@@ -109,8 +83,6 @@
 		F41A14F8114125F7005EAB77 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		F4426202115A89390028D44E /* SBPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPreferencesWindowController.h; sourceTree = "<group>"; };
 		F4426203115A89390028D44E /* SBPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPreferencesWindowController.m; sourceTree = "<group>"; };
-		F44CF02C113BEBD30092A04D /* SBLoopiaZoneRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLoopiaZoneRecord.h; sourceTree = "<group>"; };
-		F44CF02D113BEBD30092A04D /* SBLoopiaZoneRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoopiaZoneRecord.m; sourceTree = "<group>"; };
 		F4578FD811692E9F00CA7684 /* SBDomainInfoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SBDomainInfoWindow.xib; sourceTree = "<group>"; };
 		F4578FDB11692F1400CA7684 /* SBDomainInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDomainInfoWindowController.h; sourceTree = "<group>"; };
 		F4578FDC11692F1400CA7684 /* SBDomainInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDomainInfoWindowController.m; sourceTree = "<group>"; };
@@ -122,18 +94,17 @@
 		F47A56DD113F283A00284FFE /* SBAuthWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAuthWindowController.h; sourceTree = "<group>"; };
 		F47A56DE113F283A00284FFE /* SBAuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAuthWindowController.m; sourceTree = "<group>"; };
 		F47A56E0113F287B00284FFE /* SBAuthWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SBAuthWindow.xib; sourceTree = "<group>"; };
+		F48F46B614F3F75D006BD8CA /* SBLoopiaAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLoopiaAPI.h; path = submodules/LoopiaAPI/SBLoopiaAPI.h; sourceTree = SOURCE_ROOT; };
+		F48F46B714F3F75D006BD8CA /* SBLoopiaAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLoopiaAPI.m; path = submodules/LoopiaAPI/SBLoopiaAPI.m; sourceTree = SOURCE_ROOT; };
+		F48F46B814F3F75D006BD8CA /* SBLoopiaZoneRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLoopiaZoneRecord.h; path = submodules/LoopiaAPI/SBLoopiaZoneRecord.h; sourceTree = SOURCE_ROOT; };
+		F48F46B914F3F75D006BD8CA /* SBLoopiaZoneRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLoopiaZoneRecord.m; path = submodules/LoopiaAPI/SBLoopiaZoneRecord.m; sourceTree = SOURCE_ROOT; };
 		F4D17FFC114F109B00DE284E /* LHURLAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHURLAccess.h; sourceTree = "<group>"; };
 		F4D17FFD114F109C00DE284E /* LHURLAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHURLAccess.m; sourceTree = "<group>"; };
 		F4D1804E114F154E00DE284E /* SBZoneRecordDataFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBZoneRecordDataFormatter.h; sourceTree = "<group>"; };
 		F4D1804F114F154E00DE284E /* SBZoneRecordDataFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBZoneRecordDataFormatter.m; sourceTree = "<group>"; };
-		F4D5282611371D0200D97BF5 /* SBLoopiaAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLoopiaAPI.h; sourceTree = "<group>"; };
-		F4D5282711371D0200D97BF5 /* SBLoopiaAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoopiaAPI.m; sourceTree = "<group>"; };
 		F4DB109C1139B19C00BE6502 /* XMLRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XMLRPC.framework; path = Frameworks/XMLRPC.framework; sourceTree = "<group>"; };
 		F4DB10B71139B1F500BE6502 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		F4EFD9F61164FFCE00013368 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		F4EFDA0E1165051500013368 /* sparkle_dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sparkle_dsa_pub.pem; sourceTree = "<group>"; };
-		F4F4660D13A62F35006C2C84 /* SBPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBPreferencesWindow.xib; sourceTree = "<group>"; };
-		F4F4661013A62F3C006C2C84 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F4F6ED69113DB0CE0060ACCE /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = Frameworks/BWToolkitFramework.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,7 +119,6 @@
 				F47A56C1113F243D00284FFE /* Carbon.framework in Frameworks */,
 				F47A56C6113F245500284FFE /* Security.framework in Frameworks */,
 				F479B4A3114EB3AB00F509F1 /* SBPunyCode.framework in Frameworks */,
-				F4EFD9F71164FFCE00013368 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,13 +128,13 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F48F46B414F3F681006BD8CA /* Submodules */,
 				F4426200115A890B0028D44E /* WindowControllers */,
 				F4086544116BF7F200CDA0BF /* ValueTransformers */,
 				F47A56BD113F23C600284FFE /* EMKeychainItem.h */,
 				F47A56BE113F23C600284FFE /* EMKeychainItem.m */,
 				256AC3D80F4B6AC300CF3369 /* LoopiaDNSAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* LoopiaDNSAppDelegate.m */,
-				F4086545116BF81400CDA0BF /* LoopiaAPI */,
 				F4D17FFC114F109B00DE284E /* LHURLAccess.h */,
 				F4D17FFD114F109C00DE284E /* LHURLAccess.m */,
 				F4D1804E114F154E00DE284E /* SBZoneRecordDataFormatter.h */,
@@ -176,7 +146,6 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F4EFD9F61164FFCE00013368 /* Sparkle.framework */,
 				F4F6ED69113DB0CE0060ACCE /* BWToolkitFramework.framework */,
 				F4DB10B71139B1F500BE6502 /* Cocoa.framework */,
 				F4DB109C1139B19C00BE6502 /* XMLRPC.framework */,
@@ -229,13 +198,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F40B790814F3F15600442274 /* MainMenu.nib */,
+				F40B790914F3F15600442274 /* SBPreferencesWindow.nib */,
 				F4578FD811692E9F00CA7684 /* SBDomainInfoWindow.xib */,
 				F4EFDA0E1165051500013368 /* sparkle_dsa_pub.pem */,
 				F41A14F8114125F7005EAB77 /* Credits.rtf */,
 				F41A14E9114123E1005EAB77 /* LoopiaDNS.icns */,
 				F41A140711408A21005EAB77 /* SBAddSubdomainWindow.xib */,
-				F4F4660D13A62F35006C2C84 /* SBPreferencesWindow.xib */,
-				F4F4660F13A62F3C006C2C84 /* MainMenu.xib */,
 				F40EFC7F113E973D00815ADE /* Cross.png */,
 				F40EFC71113E966000815ADE /* Checkmark.png */,
 				8D1107310486CEB800E47090 /* LoopiaDNS-Info.plist */,
@@ -268,10 +237,10 @@
 		F4086545116BF81400CDA0BF /* LoopiaAPI */ = {
 			isa = PBXGroup;
 			children = (
-				F4D5282611371D0200D97BF5 /* SBLoopiaAPI.h */,
-				F4D5282711371D0200D97BF5 /* SBLoopiaAPI.m */,
-				F44CF02C113BEBD30092A04D /* SBLoopiaZoneRecord.h */,
-				F44CF02D113BEBD30092A04D /* SBLoopiaZoneRecord.m */,
+				F48F46B614F3F75D006BD8CA /* SBLoopiaAPI.h */,
+				F48F46B714F3F75D006BD8CA /* SBLoopiaAPI.m */,
+				F48F46B814F3F75D006BD8CA /* SBLoopiaZoneRecord.h */,
+				F48F46B914F3F75D006BD8CA /* SBLoopiaZoneRecord.m */,
 			);
 			name = LoopiaAPI;
 			sourceTree = "<group>";
@@ -289,6 +258,14 @@
 				F4578FDC11692F1400CA7684 /* SBDomainInfoWindowController.m */,
 			);
 			name = WindowControllers;
+			sourceTree = "<group>";
+		};
+		F48F46B414F3F681006BD8CA /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+				F4086545116BF81400CDA0BF /* LoopiaAPI */,
+			);
+			name = Submodules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,7 +311,6 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* LoopiaDNS */,
-				F4F5FC7A116CADCF00241150 /* LoopiaAPI Distribution (Sparkle) */,
 			);
 		};
 /* End PBXProject section */
@@ -353,29 +329,12 @@
 				F41A14F9114125F7005EAB77 /* Credits.rtf in Resources */,
 				F4EFDA0F1165051500013368 /* sparkle_dsa_pub.pem in Resources */,
 				F4578FD911692E9F00CA7684 /* SBDomainInfoWindow.xib in Resources */,
-				F4F4660E13A62F35006C2C84 /* SBPreferencesWindow.xib in Resources */,
-				F4F4661113A62F3C006C2C84 /* MainMenu.xib in Resources */,
+				F40B790A14F3F15600442274 /* MainMenu.nib in Resources */,
+				F40B790B14F3F15600442274 /* SBPreferencesWindow.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		F4F5FC8D116CAE5C00241150 /* Sparkle */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Sparkle;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "set -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires the \"'Release'\" build configuration; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nVERSION_SHORT=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleShortVersionString)\nARCHIVE_FILENAME=\"$PROJECT_NAME.app.zip\"\n\n#Personal stuff..\nDOWNLOAD_URL=\"http://simonb.se/apps/download/loopiadns\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key\"\n#if nothing, the .zip/.txt will just be copyed to the Desktop, for scp:ing to work, use SSH-keys!\nBIN_SERVER_PATH=\"simonb.se:/var/www/simonb.se/www.simonb.se/system/application/views/downloads/\"\nINFO_SERVER_PATH=\"simonb.se:/var/www/simonb.se/www.simonb.se/system/application/views/appcast/\"\n\necho Archiving..\n\ncd $BUILT_PRODUCTS_DIR\nrm -f $ARCHIVE_FILENAME\nditto -ck --keepParent \"$PROJECT_NAME.app\" $ARCHIVE_FILENAME\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(date +\"%a, %d %b %G %T %z\")\n\necho Signing..\n\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g' | perl -MXML::LibXML -e 'print XML::LibXML->new()->parse_file(\"-\")->findvalue(q(//string[preceding-sibling::key[1] = \"NOTE\"]))') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to sign binary with $KEYCHAIN_PRIVKEY_PATH; false; }\n\ncat > $ARCHIVE_FILENAME-$VERSION_SHORT.txt <<EOF\n\t\t\t<item>\n\t\t\t\t<title>$PROJECT_NAME $VERSION_SHORT</title>\n\t\t\t\t<description>\n\t\t\t\t\t<![CDATA[<ul>\n\t\t\t\t\t\t<li></li>\n\t\t\t\t\t</ul>]]>\n\t\t\t\t</description>\n\t\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t\t<enclosure url=\"$DOWNLOAD_URL\" length=\"$SIZE\" type=\"application/octet-stream\" sparkle:version=\"$VERSION\" sparkle:shortVersionString=\"$VERSION_SHORT\" sparkle:dsaSignature=\"$SIGNATURE\"/>\n\t\t\t</item>\nEOF\n\nif [ $BIN_SERVER_PATH ]\nthen\n\techo Sending files..\n\n\tscp $ARCHIVE_FILENAME $BIN_SERVER_PATH\n\tscp $ARCHIVE_FILENAME-$VERSION_SHORT.txt $INFO_SERVER_PATH\n\n\techo Cleaning..\n\n\trm -f $ARCHIVE_FILENAME\n\trm -f $ARCHIVE_FILENAME-$VERSION_SHORT.txt\nelse\n\techo Moving files to Desktop..\n\n\tmv $ARCHIVE_FILENAME $HOME\"/Desktop/\"\n\tmv $ARCHIVE_FILENAME-$VERSION_SHORT.txt $HOME\"/Desktop/\"\nfi";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D11072C0486CEB800E47090 /* Sources */ = {
@@ -384,8 +343,6 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* LoopiaDNSAppDelegate.m in Sources */,
-				F4D5282811371D0200D97BF5 /* SBLoopiaAPI.m in Sources */,
-				F44CF02E113BEBD30092A04D /* SBLoopiaZoneRecord.m in Sources */,
 				F47A56BF113F23C600284FFE /* EMKeychainItem.m in Sources */,
 				F47A56DF113F283A00284FFE /* SBAuthWindowController.m in Sources */,
 				F41A13F511408417005EAB77 /* SBAddSubdomainWindowController.m in Sources */,
@@ -395,18 +352,12 @@
 				F4578FDD11692F1400CA7684 /* SBDomainInfoWindowController.m in Sources */,
 				F40864B5116BDDDC00CDA0BF /* SBBooleanValueTransformer.m in Sources */,
 				F4086548116BF91000CDA0BF /* SBPunyCodeValueTransformer.m in Sources */,
+				F48F46BA14F3F75D006BD8CA /* SBLoopiaAPI.m in Sources */,
+				F48F46BB14F3F75D006BD8CA /* SBLoopiaZoneRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F4F5FC7E116CADDE00241150 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* LoopiaDNS */;
-			targetProxy = F4F5FC7D116CADDE00241150 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -415,14 +366,6 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		F4F4660F13A62F3C006C2C84 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4F4661013A62F3C006C2C84 /* English */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -497,27 +440,6 @@
 			};
 			name = Release;
 		};
-		F4F5FC7B116CADCF00241150 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "LoopiaAPI Distribution (Sparkle)";
-			};
-			name = Debug;
-		};
-		F4F5FC7C116CADCF00241150 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "LoopiaAPI Distribution (Sparkle)";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -535,15 +457,6 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F4F5FC82116CADF100241150 /* Build configuration list for PBXAggregateTarget "LoopiaAPI Distribution (Sparkle)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F4F5FC7B116CADCF00241150 /* Debug */,
-				F4F5FC7C116CADCF00241150 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

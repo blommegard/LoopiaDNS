@@ -1,0 +1,3 @@
+[submodule "submodules/LoopiaAPI"]
+	path = submodules/LoopiaAPI
+	url = https://github.com/blommegard/LoopiaAPI.git

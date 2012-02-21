@@ -22,7 +22,7 @@ typedef enum {
 	void(^block)(id data, NSURLResponse *response, NSError *error);
 	LHURLAccessType type;
 	
-	NSConnection *connection;
+	NSURLConnection *connection;
 	NSURLResponse *response;
 	NSMutableData *incomingData;
 }
