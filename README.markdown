@@ -19,4 +19,4 @@ Mac OS X 10.6 Snow Leopard
 
 ## Download
 
-Get the binary [here](later/ "Github download")
+Get latest binary [here](https://github.com/downloads/blommegard/LoopiaDNS/LoopiaDNS.app.zip "Github download")
